@@ -23,11 +23,13 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
 
     @Override
     protected void pluginInitialize() {
-        Log.d(TAG, "Starting Firebase Analytics plugin");
-
-        Context context = this.cordova.getActivity().getApplicationContext();
-
-        this.firebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        final Context context = this.cordova.getActivity().getApplicationContext();
+        this.cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                Log.d(TAG, "Starting Firebase Analytics plugin");
+                mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+            }
+        });
     }
 
     @Override
@@ -74,7 +76,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                 try {
-                    this.firebaseAnalytics.logEvent(name, bundle);
+                    mFirebaseAnalytics.logEvent(name, bundle);
                     callbackContext.success();
                 } catch (Exception e) {
                     callbackContext.error(e.getMessage());
@@ -87,7 +89,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                 try {
-                    this.firebaseAnalytics.setUserId(id);
+                    mFirebaseAnalytics.setUserId(id);
                     callbackContext.success();
                 } catch (Exception e) {
                     callbackContext.error(e.getMessage());
@@ -100,7 +102,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                 try {
-                    this.firebaseAnalytics.setUserProperty(name, value);
+                    mFirebaseAnalytics.setUserProperty(name, value);
                     callbackContext.success();
                 } catch (Exception e) {
                     callbackContext.error(e.getMessage());
@@ -113,7 +115,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
 			public void run() {
 				try {
-					this.firebaseAnalytics.setAnalyticsCollectionEnabled(enabled == "true");
+					mFirebaseAnalytics.setAnalyticsCollectionEnabled(enabled == "true");
 					callbackContext.success();
 				} catch (Exception e) {
 					callbackContext.error(e.getMessage());
@@ -126,7 +128,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
 			public void run() {
 				try {
-					this.firebaseAnalytics.setCurrentScreen(this.cordova.getActivity(), name, null);
+					mFirebaseAnalytics.setCurrentScreen(this.cordova.getActivity(), name, null);
 					callbackContext.success();
 				} catch (Exception e) {
 					callbackContext.error(e.getMessage());
