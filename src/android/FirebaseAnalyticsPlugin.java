@@ -128,7 +128,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
 			public void run() {
 				try {
-					mFirebaseAnalytics.setCurrentScreen(this.cordova.getActivity(), name, null);
+					mFirebaseAnalytics.setCurrentScreen(cordova.getActivity(), name, null);
 					callbackContext.success();
 				} catch (Exception e) {
 					callbackContext.error(e.getMessage());
