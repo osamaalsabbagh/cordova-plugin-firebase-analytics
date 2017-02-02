@@ -19,7 +19,7 @@ import java.util.Iterator;
 public class FirebaseAnalyticsPlugin extends CordovaPlugin {
     private static final String TAG = "FirebaseAnalyticsPlugin";
 
-    private FirebaseAnalytics firebaseAnalytics;
+	private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void pluginInitialize() {
