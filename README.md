@@ -19,11 +19,15 @@ NOTE: on iOS in order to collect demographic, age, gender data etc. you should a
 - iOS
 - Android
 
-## IOS common problems
+## IOS Quirks
+
+if you want to open the project with xcode you should use XCWorkspace file not xcodeproj file or you will run with some not found issues.
+
+## IOS common issues
 
 if you run with "duplication" issues after using this plugin that's mean there's another plugin using same dependencies of this plugin but without using cocoapods so you should call the author of that plugin to start using cocoapods or update that plugin to version that using cocoapods.
 
-## Android common problems
+## Android common issues
 
 if you run with "Multi dex" issues after using this plugin that's mean there's another plugin using old version of google services, and in gradle that's not allowed so you should use same version via downgrade google services of this plugin or upgrade the google services of that plugin, you have to decide what is the right choice.
 
