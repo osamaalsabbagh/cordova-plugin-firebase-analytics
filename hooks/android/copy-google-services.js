@@ -44,7 +44,7 @@ module.exports = function (context) {
           var strings = fs.readFileSync(path.join(androidFolder, "res/values/strings.xml")).toString();
 
           // strip non-default value
-          strings = strings.replace(new RegExp('<string name="google_app_id">([^\@<]+?)</string>', "i"), '');
+          strings = strings.replace(new RegExp('<string name="google_app_id".*>([^\@<]+?)</string>', "i"), '');
 
           // strip non-default value
           strings = strings.replace(new RegExp('<string name="google_api_key">([^\@<]+?)</string>', "i"), '');
@@ -53,7 +53,7 @@ module.exports = function (context) {
           strings = strings.replace(new RegExp('(\r\n|\n|\r)[ \t]*(\r\n|\n|\r)', "gm"), '$1');
 
           // replace the default value
-          strings = strings.replace(new RegExp('<string name="google_app_id">([^<]+?)</string>', "i"), '<string name="google_app_id">' + json.client[0].client_info.mobilesdk_app_id + '</string>');
+          strings = strings.replace(new RegExp('<string name="google_app_id">([^<]+?)</string>', "i"), '<string name="google_app_id" translatable="false">' + json.client[0].client_info.mobilesdk_app_id + '</string>');
 
           // replace the default value
           strings = strings.replace(new RegExp('<string name="google_api_key">([^<]+?)</string>', "i"), '<string name="google_api_key">' + json.client[0].api_key[0].current_key + '</string>');
